@@ -73,7 +73,7 @@ def show_toast(parent, message, bg="#6A13CE", fg="#FFFFFF", duration=2300):
     )
     label.pack()
 
-    toast.place(relx=1.0, rely=1.0, anchor="se", x=-30, y=-75)
+    toast.place(relx=1.0, rely=1.0, anchor="se", x=-300, y=-75)
     toast.lift()
 
     def destroy_toast():
