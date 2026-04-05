@@ -2,7 +2,7 @@
 Operaciones de filtros de color.
 
 Cada clase encapsula una operación de capa de color
-delegando a Libreria_Imagenes.
+usando a la Libreria_Imagenes.
 """
 import numpy as np
 from core.operations.base_operation import BaseOperation
