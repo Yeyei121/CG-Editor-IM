@@ -28,7 +28,7 @@ class FusionDialog(tk.Toplevel):
 
         self.title("Fusión de imágenes")
         self.configure(bg=COLORS["bg_dark"])
-        self.geometry("500x450")
+        self.geometry("500x550")
         self.resizable(False, False)
         self.transient(parent)
         self.grab_set()
