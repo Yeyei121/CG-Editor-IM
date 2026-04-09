@@ -47,15 +47,20 @@ def numpy_to_photoimage(arr, max_size=None):
 
 def load_image_as_array(filepath):
     """
-    Carga una imagen desde archivo y la convierte a numpy array RGB uint8.
+    Carga una imagen desde archivo y la convierte a numpy array uint8.
 
     Args:
         filepath: Ruta al archivo de imagen.
 
     Returns:
-        numpy array de la imagen en formato RGB uint8.
+        numpy array de la imagen en formato RGB o RGBA uint8.
     """
-    pil_img = Image.open(filepath).convert("RGB")
+    pil_img = Image.open(filepath)
+    # Si la imagen trae transparencia (PNG/WebP/etc.), conservar alpha.
+    if "A" in pil_img.getbands() or pil_img.mode in ("LA", "P"):
+        pil_img = pil_img.convert("RGBA")
+    else:
+        pil_img = pil_img.convert("RGB")
     return np.array(pil_img, dtype=np.uint8)
 
 

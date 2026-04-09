@@ -65,7 +65,12 @@ class ImageModel:
             FileNotFoundError: Si el archivo no existe.
             PIL.UnidentifiedImageError: Si el archivo no es una imagen válida.
         """
-        pil_img = Image.open(filepath).convert("RGB")
+        pil_img = Image.open(filepath)
+        # Si la imagen trae transparencia (PNG/WebP/etc.), conservar alpha.
+        if "A" in pil_img.getbands() or pil_img.mode in ("LA", "P"):
+            pil_img = pil_img.convert("RGBA")
+        else:
+            pil_img = pil_img.convert("RGB")
         arr = np.array(pil_img, dtype=np.uint8)
         self._original = arr
         self._current = np.copy(arr)
