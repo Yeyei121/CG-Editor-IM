@@ -52,7 +52,7 @@ def animate_color_transition(widget, attr, color_from, color_to, steps=8, delay=
     step(0)
 
 
-def show_toast(parent, message, bg="#6A13CE", fg="#FFFFFF", duration=2300):
+def show_toast(parent, message, bg="#6A13CE", fg="#FFFFFF", duration=2000):
     """
     Muestra una notificación toast animada en la esquina inferior derecha.
 
@@ -84,63 +84,6 @@ def show_toast(parent, message, bg="#6A13CE", fg="#FFFFFF", duration=2300):
 
     parent.after(duration, destroy_toast)
     return toast
-
-
-class LoadingSpinner:
-    """
-    Spinner de carga animado dibujado en un Canvas de tkinter.
-
-    Args:
-        parent: Widget padre.
-        size: Tamaño del spinner en píxeles.
-        color: Color del arco.
-    """
-
-    def __init__(self, parent, size=40, color="#4F8EF7"):
-        bg = "#0D0F14"
-        try:
-            bg = parent.cget("bg")
-        except (tk.TclError, AttributeError):
-            pass
-        self._canvas = tk.Canvas(
-            parent, width=size, height=size,
-            highlightthickness=0, bg=bg,
-        )
-        self._size = size
-        self._color = color
-        self._angle = 0
-        self._running = False
-        pad = 4
-        self._arc = self._canvas.create_arc(
-            pad, pad, size - pad, size - pad,
-            start=0, extent=90, outline=color, width=3, style="arc",
-        )
-
-    def start(self):
-        """Inicia la animación del spinner."""
-        self._running = True
-        self._animate()
-
-    def stop(self):
-        """Detiene la animación del spinner."""
-        self._running = False
-
-    def _animate(self):
-        if not self._running:
-            return
-        self._angle = (self._angle + 12) % 360
-        self._canvas.itemconfigure(self._arc, start=self._angle)
-        self._canvas.after(30, self._animate)
-
-    def show(self, **kwargs):
-        """Muestra el spinner en la posición especificada."""
-        self._canvas.place(**kwargs)
-        self.start()
-
-    def hide(self):
-        """Oculta el spinner y detiene la animación."""
-        self.stop()
-        self._canvas.place_forget()
 
 
 def _center_window(win, width, height):

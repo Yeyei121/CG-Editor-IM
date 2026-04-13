@@ -56,7 +56,7 @@ def load_image_as_array(filepath):
         numpy array de la imagen en formato RGB o RGBA uint8.
     """
     pil_img = Image.open(filepath)
-    # Si la imagen trae transparencia (PNG/WebP/etc.), conservar alpha.
+    # Si la imagen tiene canal alpha.
     if "A" in pil_img.getbands() or pil_img.mode in ("LA", "P"):
         pil_img = pil_img.convert("RGBA")
     else:
